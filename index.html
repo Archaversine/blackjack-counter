@@ -1,0 +1,81 @@
+<!DOCTYPE>
+<html>
+   <head>
+        <title>THRAWN</title>
+        <link rel="stylesheet" href="style.css">
+   </head> 
+
+   <body>
+       <h1>THRAWN - Tactical Card Counter</h1>
+
+       <q>Destroying Children in Roblox with Dependent Type Theory</q> <br /><br />
+
+        <button id="reset-button" class="big-button">Reset</button>
+
+        <div class="goal-buttons">
+            <button id="goal-button-17" class="goal-button">Goal 17</button>
+            <button id="goal-button-21" class="goal-button active-goal-button">Goal 21</button>
+            <button id="goal-button-24" class="goal-button">Goal 24</button>
+            <button id="goal-button-27" class="goal-button">Goal 27</button>
+        </div> <br /><br />
+
+       <div class="my-buttons">
+           <button id="my-card-button-1" class="card card-inactive">1</button>
+           <button id="my-card-button-2" class="card card-inactive">2</button>
+           <button id="my-card-button-3" class="card card-inactive">3</button>
+           <button id="my-card-button-4" class="card card-inactive">4</button>
+           <button id="my-card-button-5" class="card card-inactive">5</button>
+           <button id="my-card-button-6" class="card card-inactive">6</button>
+           <button id="my-card-button-7" class="card card-inactive">7</button>
+           <button id="my-card-button-8" class="card card-inactive">8</button>
+           <button id="my-card-button-9" class="card card-inactive">9</button>
+           <button id="my-card-button-10" class="card card-inactive">10</button>
+           <button id="my-card-button-11" class="card card-inactive">11</button>
+       </div>
+
+       <div class="display">
+            <div class="my-stats display-internal">
+                <h2>My Statistics</h2>
+
+                <strong>Your Hand: </strong> <span id="my-hand-counter" class="green">0</span> <br />
+                <strong>Lowest Possible: </strong> <span id="my-lowest-counter" class="green">1</span> (After drawing) <br />
+                <strong>Highest Possible: </strong> <span id="my-highest-counter" class="green">11</span> (After drawing) <br />
+                <strong>Safe Cards: </strong> <span id="my-safe-counter">11</span> <br />
+                <strong>Unsafe Cards: </strong> <span id="my-unsafe-counter">0</span> <br />
+                <strong>Safe Odds: </strong> <span id="my-odds">100%</span>
+            </div>
+
+            <div class="their-stats display-internal">
+                <h2>Their Statistics</h2>
+
+                <strong>Their Hand: </strong> <span id="their-hand-counter" class="green">0</span> + <strong id="unknown-counter">1</strong> Unknown(s). <br />
+                <strong>Lowest Possible: </strong> <span id="their-lowest-counter" class="green">1</span>, (<span id="their-lowest-draw-counter" class="green">3</span> After drawing) <br />
+                <strong>Highest Possible: </strong> <span id="their-highest-counter" class="green">11</span>, (<span id="their-highest-draw-counter" class="green">21</span> After drawing) <br />
+                <strong>Safe Cards: </strong> <span id="their-safe-counter">11</span> <br />
+                <strong>Unsafe Cards: </strong> <span id="their-unsafe-counter">0</span> <br />
+                <strong>Safe Odds: </strong> <span id="their-odds">100%</span>
+            </div> <br />
+
+            <h2 id="remaining-counter">Remaining Cards: 11</h2>
+       </div>
+
+       <div class="their-buttons">
+           <button id="their-card-button-1" class="card card-inactive">1</button>
+           <button id="their-card-button-2" class="card card-inactive">2</button>
+           <button id="their-card-button-3" class="card card-inactive">3</button>
+           <button id="their-card-button-4" class="card card-inactive">4</button>
+           <button id="their-card-button-5" class="card card-inactive">5</button>
+           <button id="their-card-button-6" class="card card-inactive">6</button>
+           <button id="their-card-button-7" class="card card-inactive">7</button>
+           <button id="their-card-button-8" class="card card-inactive">8</button>
+           <button id="their-card-button-9" class="card card-inactive">9</button>
+           <button id="their-card-button-10" class="card card-inactive">10</button>
+           <button id="their-card-button-11" class="card card-inactive">11</button>
+           <button class="card">?+</button>
+           <button class="card">?-</button>
+       </div>
+
+       <script src="blackjack-counter.js"></script>
+   </body>
+</html>
+
