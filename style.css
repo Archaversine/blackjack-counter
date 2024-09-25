@@ -2,12 +2,16 @@
     text-align: center;
 }
 
+body {
+    background-color: pink;
+}
+
 q {
     font-size: 16px;
     font-weight: bolder;
     font-style: italic;
     text-decoration: underline;
-    color: darkgray;
+    color: darkgreen;
 }
 
 button {
@@ -51,12 +55,26 @@ button.active-goal-button {
     color: white;
 }
 
+div.display {
+    background-color: lightpink;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    padding-bottom: 10px;
+}
+
 div.display-internal {
     display: inline-block;
     margin: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: left;
+}
+
+div.display-internal h2 {
+    text-decoration: underline;
 }
 
 .debug-border {
@@ -70,8 +88,10 @@ div.display-internal {
 
 .green {
     color: darkgreen;
+    font-weight: bolder;
 }
 
 .red {
     color: red;
+    font-weight: bolder;
 }
