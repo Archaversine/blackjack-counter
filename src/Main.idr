@@ -135,6 +135,14 @@ mutual
     renderGameState new
     writeIORef ref new
 
+  registerUnknownButtonEventListener : IORef GameState -> Button -> (increase : Bool) -> IO ()
+  registerUnknownButtonEventListener ref elem increase = addEventListener elem "click" $ do 
+    old <- readIORef ref 
+    let new = handleEvent (if increase then AddUnknown else RemoveUnknown) old 
+
+    renderGameState new
+    writeIORef ref new
+
   renderButton : GameState -> (Button, Player, Card) -> IO ()
   renderButton s (elem, plr, c) = setCardState elem (getCardState s plr c)
 
@@ -187,6 +195,7 @@ mutual
     let remaining = length s.deck
 
     setStatValue "remaining-counter" ("Remaining Cards: " ++ show remaining)
+    setStatValue "unknown-counter" s.unknowns
 
 resetButton : Button
 resetButton = MkDomElement "reset-button"
@@ -211,3 +220,7 @@ main = do
 
   -- register event listeners for reset button
   registerResetButtonListener ref
+
+  -- register event listeners for unknown buttons
+  registerUnknownButtonEventListener ref (MkDomElement "increase-unknown") True
+  registerUnknownButtonEventListener ref (MkDomElement "decrease-unknown") False

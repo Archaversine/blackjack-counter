@@ -390,7 +390,7 @@ function prim__sub_Integer($0, $1) {
 }
 
 /* Main.with block in getCardState */
-function Main_with__getCardState_2254($0, $1, $2, $3) {
+function Main_with__getCardState_2267($0, $1, $2, $3) {
  switch($3.h) {
   case 0: /* Yes */ return 0;
   case 1: /* No */ return 1;
@@ -570,7 +570,10 @@ function Main_renderGameState($0, $1) {
    const $101 = Main_setStatValue(csegen_14()(), 'their-unsafe-counter', $c3)($d4);
    const $10a = Main_setStatValue(csegen_31()(), 'their-odds', (Prelude_Show_show_Show_Double((Number(100n)*$cd))+'%'))($d4);
    const $11c = Prelude_Types_List_lengthTR($0.a1);
-   const $11b = () => Main_setStatValue(csegen_31()(), 'remaining-counter', ('Remaining Cards: '+Prelude_Show_show_Show_Nat($11c)));
+   const $11b = () => $120 => {
+    const $121 = Main_setStatValue(csegen_31()(), 'remaining-counter', ('Remaining Cards: '+Prelude_Show_show_Show_Nat($11c)))($120);
+    return Main_setStatValue(csegen_14()(), 'unknown-counter', $0.a4)($120);
+   };
    const $11a = $11b();
    return $11a($d4);
   };
@@ -584,6 +587,28 @@ function Main_renderGameState($0, $1) {
 /* Main.renderButton : GameState -> (Button, (Player, Card)) -> IO () */
 function Main_renderButton($0, $1) {
  return $2 => Main_setCardState($1.a1, Main_getCardState($0, $1.a2.a1, $1.a2.a2), $2);
+}
+
+/* Main.registerUnknownButtonEventListener : IORef GameState -> Button -> Bool -> IO () */
+function Main_registerUnknownButtonEventListener($0, $1, $2) {
+ const $9 = $a => {
+  const $b = ($0.value);
+  let $11;
+  switch($2) {
+   case 1: {
+    $11 = {h: 5 /* AddUnknown */};
+    break;
+   }
+   case 0: {
+    $11 = {h: 6 /* RemoveUnknown */};
+    break;
+   }
+  }
+  const $f = Game_Events_handleEvent($11, $b);
+  const $14 = Main_renderGameState($f, $a);
+  return ($0.value=$f);
+ };
+ return HTML_Dom_addEventListener(csegen_13()(), $1, 'click', $9);
 }
 
 /* Main.registerResetButtonListener : IORef GameState -> IO () */
@@ -624,7 +649,9 @@ function Main_main($0) {
  const $1 = Data_IORef_newIORef(csegen_13()(), Game_Types_NewGameState())($0);
  const $a = Prelude_Interfaces_sequence_(csegen_6()(), csegen_30(), Prelude_Types_List_mapAppend({h: 0}, $16 => Main_registerCardButtonEventListener($1, $16), Main_cardButtons()))($0);
  const $1d = Prelude_Interfaces_sequence_(csegen_6()(), csegen_30(), Prelude_Types_List_mapAppend({h: 0}, $29 => Main_registerGoalButtonEventListener($1, $29), Main_goalButtons()))($0);
- return Main_registerResetButtonListener($1)($0);
+ const $30 = Main_registerResetButtonListener($1)($0);
+ const $35 = Main_registerUnknownButtonEventListener($1, 'increase-unknown', 1)($0);
+ return Main_registerUnknownButtonEventListener($1, 'decrease-unknown', 0)($0);
 }
 
 /* Main.goalButtons : List (Button, Goal) */
@@ -654,7 +681,7 @@ function Main_getCardState($0, $1, $2) {
   }
  }
  const $7 = Game_Card_hasCard($2, $a);
- return Main_with__getCardState_2254($2, $1, $0, $7);
+ return Main_with__getCardState_2267($2, $1, $0, $7);
 }
 
 /* Main.cardUpdateGameState : Button -> Player -> Card -> (1 _ : GameState) -> GameState */
