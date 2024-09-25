@@ -359,14 +359,14 @@ const csegen_14 = __lazy(function () {
  return () => ({a1: $1 => HTML_Dom_toDomValue_DomValue_Nat($1), a2: $5 => HTML_Dom_fromDomValue_DomValue_Nat($5)});
 });
 
-/* {csegen:30} */
-const csegen_30 = __lazy(function () {
- return {a1: acc => elem => func => init => input => Prelude_Types_foldr_Foldable_List(func, init, input), a2: elem => acc => func => init => input => Prelude_Types_foldl_Foldable_List(func, init, input), a3: elem => $b => Prelude_Types_null_Foldable_List($b), a4: elem => acc => m => $f => funcM => init => input => Prelude_Types_foldlM_Foldable_List($f, funcM, init, input), a5: elem => $16 => $16, a6: a => m => $18 => f => $19 => Prelude_Types_foldMap_Foldable_List($18, f, $19)};
+/* {csegen:16} */
+const csegen_16 = __lazy(function () {
+ return () => ({a1: $1 => $1, a2: $3 => $3});
 });
 
 /* {csegen:31} */
 const csegen_31 = __lazy(function () {
- return () => ({a1: $1 => $1, a2: $3 => $3});
+ return {a1: acc => elem => func => init => input => Prelude_Types_foldr_Foldable_List(func, init, input), a2: elem => acc => func => init => input => Prelude_Types_foldl_Foldable_List(func, init, input), a3: elem => $b => Prelude_Types_null_Foldable_List($b), a4: elem => acc => m => $f => funcM => init => input => Prelude_Types_foldlM_Foldable_List($f, funcM, init, input), a5: elem => $16 => $16, a6: a => m => $18 => f => $19 => Prelude_Types_foldMap_Foldable_List($18, f, $19)};
 });
 
 /* {csegen:104} */
@@ -390,7 +390,7 @@ function prim__sub_Integer($0, $1) {
 }
 
 /* Main.with block in getCardState */
-function Main_with__getCardState_2267($0, $1, $2, $3) {
+function Main_with__getCardState_2282($0, $1, $2, $3) {
  switch($3.h) {
   case 0: /* Yes */ return 0;
   case 1: /* No */ return 1;
@@ -529,6 +529,40 @@ const Main_resetButton = __lazy(function () {
  return 'reset-button';
 });
 
+/* Main.renderPerfect : String -> Player -> Maybe (Card, Bool) -> IO () */
+function Main_renderPerfect($0, $1, $2, $3) {
+ const $4 = HTML_Dom_removeClass(csegen_13()(), $0, Main_show_Show_ValueColor(0))($3);
+ const $f = HTML_Dom_removeClass(csegen_13()(), $0, Main_show_Show_ValueColor(1))($3);
+ let $1b;
+ switch($2.h) {
+  case 0: /* nothing */ {
+   $1b = () => Main_setStatValue(csegen_16()(), $0, 'None');
+   break;
+  }
+  case undefined: /* just */ {
+   switch($2.a1.a2) {
+    case 1: {
+     $1b = () => $25 => {
+      const $26 = Main_setStatValue(csegen_14()(), $0, Game_Card_cardToNat($2.a1.a1))($25);
+      return HTML_Dom_addClass(csegen_13()(), $0, Main_show_Show_ValueColor(1))($25);
+     };
+     break;
+    }
+    case 0: {
+     $1b = () => $3b => {
+      const $3c = Main_setStatValue(csegen_14()(), $0, Game_Card_cardToNat($2.a1.a1))($3b);
+      return HTML_Dom_addClass(csegen_13()(), $0, Main_show_Show_ValueColor(0))($3b);
+     };
+     break;
+    }
+   }
+   break;
+  }
+ }
+ const $1a = $1b();
+ return $1a($3);
+}
+
 /* Main.renderGoalButton : GameState -> (Button, Goal) -> IO () */
 function Main_renderGoalButton($0, $1, $2) {
  return Main_setGoalState($1.a1, Main_getGoalState($0, $1.a2), $2);
@@ -536,49 +570,53 @@ function Main_renderGoalButton($0, $1, $2) {
 
 /* Main.renderGameState : GameState -> IO () */
 function Main_renderGameState($0, $1) {
- const $2 = Prelude_Interfaces_sequence_(csegen_6()(), csegen_30(), Prelude_Types_List_mapAppend({h: 0}, $e => Main_renderButton($0, $e), Main_cardButtons()))($1);
- const $15 = Prelude_Interfaces_sequence_(csegen_6()(), csegen_30(), Prelude_Types_List_mapAppend({h: 0}, $21 => $22 => Main_renderGoalButton($0, $21, $22), Main_goalButtons()))($1);
+ const $2 = Prelude_Interfaces_sequence_(csegen_6()(), csegen_31(), Prelude_Types_List_mapAppend({h: 0}, $e => Main_renderButton($0, $e), Main_cardButtons()))($1);
+ const $15 = Prelude_Interfaces_sequence_(csegen_6()(), csegen_31(), Prelude_Types_List_mapAppend({h: 0}, $21 => $22 => Main_renderGoalButton($0, $21, $22), Main_goalButtons()))($1);
  const $2c = Game_Logic_getHand($0.a2);
  const $30 = Game_Logic_lowestPossibleScore($0.a2, 1n, $0.a1);
  const $37 = Game_Logic_highestPossibleScore($0.a2, 1n, $0.a1);
- const $3e = Prelude_Types_List_lengthTR(Game_Logic_safeCards($0.a2, $0.a1, $0.a5));
- const $48 = Prelude_Types_List_lengthTR(Game_Logic_unsafeCards($0.a2, $0.a1, $0.a5));
- const $52 = (Number($3e)/Number(($3e+$48)));
- const $2b = () => $59 => {
-  const $5a = Main_setColoredValue('my-hand-counter', $2c, $0.a5, $59);
-  const $61 = Main_setColoredValue('my-lowest-counter', $30, $0.a5, $59);
-  const $68 = Main_setColoredValue('my-highest-counter', $37, $0.a5, $59);
-  const $6f = Main_setStatValue(csegen_14()(), 'my-safe-counter', $3e)($59);
-  const $78 = Main_setStatValue(csegen_14()(), 'my-unsafe-counter', $48)($59);
-  const $81 = Main_setStatValue(csegen_31()(), 'my-odds', (Prelude_Show_show_Show_Double((Number(100n)*$52))+'%'))($59);
-  const $93 = Game_Logic_getHand($0.a3);
-  const $97 = $0.a4;
-  const $99 = Game_Logic_lowestPossibleScore($0.a3, $97, $0.a1);
-  const $a0 = Game_Logic_highestPossibleScore($0.a3, $97, $0.a1);
-  const $a7 = Game_Logic_lowestPossibleScore($0.a3, ($97+1n), $0.a1);
-  const $b0 = Game_Logic_highestPossibleScore($0.a3, ($97+1n), $0.a1);
-  const $b9 = Prelude_Types_List_lengthTR(Game_Logic_safeCards($0.a3, $0.a1, $0.a5));
-  const $c3 = Prelude_Types_List_lengthTR(Game_Logic_unsafeCards($0.a3, $0.a1, $0.a5));
-  const $cd = (Number($b9)/Number(($b9+$c3)));
-  const $92 = () => $d4 => {
-   const $d5 = Main_setColoredValue('their-hand-counter', $93, $0.a5, $d4);
-   const $dc = Main_setColoredValue('their-lowest-counter', $99, $0.a5, $d4);
-   const $e3 = Main_setColoredValue('their-highest-counter', $a0, $0.a5, $d4);
-   const $ea = Main_setColoredValue('their-lowest-draw-counter', $a7, $0.a5, $d4);
-   const $f1 = Main_setColoredValue('their-highest-draw-counter', $b0, $0.a5, $d4);
-   const $f8 = Main_setStatValue(csegen_14()(), 'their-safe-counter', $b9)($d4);
-   const $101 = Main_setStatValue(csegen_14()(), 'their-unsafe-counter', $c3)($d4);
-   const $10a = Main_setStatValue(csegen_31()(), 'their-odds', (Prelude_Show_show_Show_Double((Number(100n)*$cd))+'%'))($d4);
-   const $11c = Prelude_Types_List_lengthTR($0.a1);
-   const $11b = () => $120 => {
-    const $121 = Main_setStatValue(csegen_31()(), 'remaining-counter', ('Remaining Cards: '+Prelude_Show_show_Show_Nat($11c)))($120);
-    return Main_setStatValue(csegen_14()(), 'unknown-counter', $0.a4)($120);
+ const $3e = Game_Logic_perfectCard($0.a2, $0.a1, $0.a5);
+ const $46 = Prelude_Types_List_lengthTR(Game_Logic_safeCards($0.a2, $0.a1, $0.a5));
+ const $50 = Prelude_Types_List_lengthTR(Game_Logic_unsafeCards($0.a2, $0.a1, $0.a5));
+ const $5a = (Number($46)/Number(($46+$50)));
+ const $2b = () => $61 => {
+  const $62 = Main_setColoredValue('my-hand-counter', $2c, $0.a5, $61);
+  const $69 = Main_setColoredValue('my-lowest-counter', $30, $0.a5, $61);
+  const $70 = Main_setColoredValue('my-highest-counter', $37, $0.a5, $61);
+  const $77 = Main_renderPerfect('my-perfect', 0, $3e, $61);
+  const $7d = Main_setStatValue(csegen_14()(), 'my-safe-counter', $46)($61);
+  const $86 = Main_setStatValue(csegen_14()(), 'my-unsafe-counter', $50)($61);
+  const $8f = Main_setStatValue(csegen_16()(), 'my-odds', (Prelude_Show_show_Show_Double((Number(100n)*$5a))+'%'))($61);
+  const $a1 = Game_Logic_getHand($0.a3);
+  const $a5 = $0.a4;
+  const $a7 = Game_Logic_lowestPossibleScore($0.a3, $a5, $0.a1);
+  const $ae = Game_Logic_highestPossibleScore($0.a3, $a5, $0.a1);
+  const $b5 = Game_Logic_perfectCard($0.a3, $0.a1, $0.a5);
+  const $bd = Game_Logic_lowestPossibleScore($0.a3, ($a5+1n), $0.a1);
+  const $c6 = Game_Logic_highestPossibleScore($0.a3, ($a5+1n), $0.a1);
+  const $cf = Prelude_Types_List_lengthTR(Game_Logic_safeCards($0.a3, $0.a1, $0.a5));
+  const $d9 = Prelude_Types_List_lengthTR(Game_Logic_unsafeCards($0.a3, $0.a1, $0.a5));
+  const $e3 = (Number($cf)/Number(($cf+$d9)));
+  const $a0 = () => $ea => {
+   const $eb = Main_setColoredValue('their-hand-counter', $a1, $0.a5, $ea);
+   const $f2 = Main_setColoredValue('their-lowest-counter', $a7, $0.a5, $ea);
+   const $f9 = Main_setColoredValue('their-highest-counter', $ae, $0.a5, $ea);
+   const $100 = Main_setColoredValue('their-lowest-draw-counter', $bd, $0.a5, $ea);
+   const $107 = Main_setColoredValue('their-highest-draw-counter', $c6, $0.a5, $ea);
+   const $10e = Main_renderPerfect('their-perfect', 0, $b5, $ea);
+   const $114 = Main_setStatValue(csegen_14()(), 'their-safe-counter', $cf)($ea);
+   const $11d = Main_setStatValue(csegen_14()(), 'their-unsafe-counter', $d9)($ea);
+   const $126 = Main_setStatValue(csegen_16()(), 'their-odds', (Prelude_Show_show_Show_Double((Number(100n)*$e3))+'%'))($ea);
+   const $138 = Prelude_Types_List_lengthTR($0.a1);
+   const $137 = () => $13c => {
+    const $13d = Main_setStatValue(csegen_16()(), 'remaining-counter', ('Remaining Cards: '+Prelude_Show_show_Show_Nat($138)))($13c);
+    return Main_setStatValue(csegen_14()(), 'unknown-counter', $0.a4)($13c);
    };
-   const $11a = $11b();
-   return $11a($d4);
+   const $136 = $137();
+   return $136($ea);
   };
-  const $91 = $92();
-  return $91($59);
+  const $9f = $a0();
+  return $9f($61);
  };
  const $2a = $2b();
  return $2a($1);
@@ -647,8 +685,8 @@ function Main_registerCardButtonEventListener($0, $1) {
 /* Main.main : IO () */
 function Main_main($0) {
  const $1 = Data_IORef_newIORef(csegen_13()(), Game_Types_NewGameState())($0);
- const $a = Prelude_Interfaces_sequence_(csegen_6()(), csegen_30(), Prelude_Types_List_mapAppend({h: 0}, $16 => Main_registerCardButtonEventListener($1, $16), Main_cardButtons()))($0);
- const $1d = Prelude_Interfaces_sequence_(csegen_6()(), csegen_30(), Prelude_Types_List_mapAppend({h: 0}, $29 => Main_registerGoalButtonEventListener($1, $29), Main_goalButtons()))($0);
+ const $a = Prelude_Interfaces_sequence_(csegen_6()(), csegen_31(), Prelude_Types_List_mapAppend({h: 0}, $16 => Main_registerCardButtonEventListener($1, $16), Main_cardButtons()))($0);
+ const $1d = Prelude_Interfaces_sequence_(csegen_6()(), csegen_31(), Prelude_Types_List_mapAppend({h: 0}, $29 => Main_registerGoalButtonEventListener($1, $29), Main_goalButtons()))($0);
  const $30 = Main_registerResetButtonListener($1)($0);
  const $35 = Main_registerUnknownButtonEventListener($1, 'increase-unknown', 1)($0);
  return Main_registerUnknownButtonEventListener($1, 'decrease-unknown', 0)($0);
@@ -681,7 +719,7 @@ function Main_getCardState($0, $1, $2) {
   }
  }
  const $7 = Game_Card_hasCard($2, $a);
- return Main_with__getCardState_2267($2, $1, $0, $7);
+ return Main_with__getCardState_2282($2, $1, $0, $7);
 }
 
 /* Main.cardUpdateGameState : Button -> Player -> Card -> (1 _ : GameState) -> GameState */
@@ -1904,6 +1942,80 @@ function Game_Card_hasCard($0, $1) {
  }
 }
 
+/* Game.Card.fromNatMaybe : Nat -> Maybe Card */
+function Game_Card_fromNatMaybe($0) {
+ switch($0) {
+  case 0n: return {h: 0};
+  default: {
+   const $2 = ($0-1n);
+   switch($2) {
+    case 0n: return {a1: 0};
+    default: {
+     const $7 = ($2-1n);
+     switch($7) {
+      case 0n: return {a1: 1};
+      default: {
+       const $c = ($7-1n);
+       switch($c) {
+        case 0n: return {a1: 2};
+        default: {
+         const $11 = ($c-1n);
+         switch($11) {
+          case 0n: return {a1: 3};
+          default: {
+           const $16 = ($11-1n);
+           switch($16) {
+            case 0n: return {a1: 4};
+            default: {
+             const $1b = ($16-1n);
+             switch($1b) {
+              case 0n: return {a1: 5};
+              default: {
+               const $20 = ($1b-1n);
+               switch($20) {
+                case 0n: return {a1: 6};
+                default: {
+                 const $25 = ($20-1n);
+                 switch($25) {
+                  case 0n: return {a1: 7};
+                  default: {
+                   const $2a = ($25-1n);
+                   switch($2a) {
+                    case 0n: return {a1: 8};
+                    default: {
+                     const $2f = ($2a-1n);
+                     switch($2f) {
+                      case 0n: return {a1: 9};
+                      default: {
+                       const $34 = ($2f-1n);
+                       switch($34) {
+                        case 0n: return {a1: 10};
+                        default: return {h: 0};
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
 /* Game.Card.cardToNat : Card -> Nat */
 function Game_Card_cardToNat($0) {
  switch($0) {
@@ -1988,6 +2100,22 @@ function Data_List_mergeBy($0, $1, $2) {
  }
 }
 
+/* Game.Logic.with block in with block in perfectCard */
+function Game_Logic_with__withx20blockx20inx20perfectCard_5410($0, $1, $2, $3, $4) {
+ switch($2.h) {
+  case 0: /* Yes */ return {a1: {a1: $0, a2: 1}};
+  case 1: /* No */ return {a1: {a1: $0, a2: 0}};
+ }
+}
+
+/* Game.Logic.with block in perfectCard */
+function Game_Logic_with__perfectCard_5403($0, $1, $2, $3) {
+ switch($2.h) {
+  case 0: /* nothing */ return {h: 0};
+  case undefined: /* just */ return Game_Logic_with__withx20blockx20inx20perfectCard_5410($2.a1, $3, Game_Card_hasCard($2.a1, $3), $1, $0);
+ }
+}
+
 /* Game.Logic.unsafeCards : List Card -> List Card -> Goal -> List Card */
 function Game_Logic_unsafeCards($0, $1, $2) {
  return Prelude_Types_listBind($1, c => Prelude_Types_listBind(Prelude_Interfaces_guard(csegen_104(), Prelude_Types_x3e_Ord_Nat((Game_Logic_getHand($0)+Game_Card_cardToNat(c)), Game_Types_goalToNat($2))), $18 => Prelude_Types_pure_Applicative_List(c)));
@@ -1996,6 +2124,11 @@ function Game_Logic_unsafeCards($0, $1, $2) {
 /* Game.Logic.safeCards : List Card -> List Card -> Goal -> List Card */
 function Game_Logic_safeCards($0, $1, $2) {
  return Prelude_Types_listBind($1, c => Prelude_Types_listBind(Prelude_Interfaces_guard(csegen_104(), Prelude_Types_x3cx3d_Ord_Nat((Game_Logic_getHand($0)+Game_Card_cardToNat(c)), Game_Types_goalToNat($2))), $18 => Prelude_Types_pure_Applicative_List(c)));
+}
+
+/* Game.Logic.perfectCard : List Card -> List Card -> Goal -> Maybe (Card, Bool) */
+function Game_Logic_perfectCard($0, $1, $2) {
+ return Game_Logic_with__perfectCard_5403($2, $0, Game_Card_fromNatMaybe(Prelude_Types_prim__integerToNat((Game_Types_goalToNat($2)-Game_Logic_getHand($0)))), $1);
 }
 
 /* Game.Logic.nLowest : Ord a => Nat -> List a -> List a */
@@ -2010,17 +2143,17 @@ function Game_Logic_nHighest($0, $1, $2) {
 
 /* Game.Logic.lowestPossibleScore : List Card -> Nat -> List Card -> Nat */
 function Game_Logic_lowestPossibleScore($0, $1, $2) {
- return (Game_Logic_getHand($0)+Prelude_Interfaces_sum(csegen_107(), csegen_30(), Game_Logic_nLowest(csegen_118(), $1, Prelude_Types_List_mapAppend({h: 0}, $15 => Game_Card_cardToNat($15), $2))));
+ return (Game_Logic_getHand($0)+Prelude_Interfaces_sum(csegen_107(), csegen_31(), Game_Logic_nLowest(csegen_118(), $1, Prelude_Types_List_mapAppend({h: 0}, $15 => Game_Card_cardToNat($15), $2))));
 }
 
 /* Game.Logic.highestPossibleScore : List Card -> Nat -> List Card -> Nat */
 function Game_Logic_highestPossibleScore($0, $1, $2) {
- return (Game_Logic_getHand($0)+Prelude_Interfaces_sum(csegen_107(), csegen_30(), Game_Logic_nHighest(csegen_118(), $1, Prelude_Types_List_mapAppend({h: 0}, $15 => Game_Card_cardToNat($15), $2))));
+ return (Game_Logic_getHand($0)+Prelude_Interfaces_sum(csegen_107(), csegen_31(), Game_Logic_nHighest(csegen_118(), $1, Prelude_Types_List_mapAppend({h: 0}, $15 => Game_Card_cardToNat($15), $2))));
 }
 
 /* Game.Logic.getHand : List Card -> Nat */
 function Game_Logic_getHand($0) {
- return Prelude_Interfaces_sum(csegen_107(), csegen_30(), Prelude_Types_List_mapAppend({h: 0}, $a => Game_Card_cardToNat($a), $0));
+ return Prelude_Interfaces_sum(csegen_107(), csegen_31(), Prelude_Types_List_mapAppend({h: 0}, $a => Game_Card_cardToNat($a), $0));
 }
 
 /* Game.Events.with block in handleEvent */

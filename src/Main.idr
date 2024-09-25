@@ -149,6 +149,22 @@ mutual
   renderGoalButton : GameState -> (Button, Goal) -> IO ()
   renderGoalButton s (elem, g) = setGoalState elem (getGoalState s g)
 
+  renderPerfect : String -> Player -> Maybe (Card, Bool) -> IO ()
+  renderPerfect elem plr m = do 
+    let e = MkDomElement {value=Void,innerHTML=String} elem
+
+    removeClass e (show Red)
+    removeClass e (show Green)
+
+    case m of 
+      Nothing => setStatValue elem "None"
+      Just (c, True)  => do 
+        setStatValue elem (cardToNat c)
+        addClass e (show Green)
+      Just (c, False) => do
+        setStatValue elem (cardToNat c)
+        addClass e (show Red)
+
   renderGameState : GameState -> IO ()
   renderGameState s = do 
     -- render all card buttons
@@ -160,6 +176,7 @@ mutual
     let myHand    = getHand s.me
         myLowest  = lowestPossibleScore s.me 1 s.deck
         myHighest = highestPossibleScore s.me 1 s.deck
+        myPerfect = perfectCard s.me s.deck s.goal
         mySafes   = length (safeCards s.me s.deck s.goal)
         myUnsafes = length (unsafeCards s.me s.deck s.goal)
         myOdds    = cast {to=Double} mySafes / cast (mySafes + myUnsafes)
@@ -167,6 +184,8 @@ mutual
     setColoredValue "my-hand-counter" myHand s.goal
     setColoredValue "my-lowest-counter" myLowest s.goal
     setColoredValue "my-highest-counter" myHighest s.goal
+
+    renderPerfect "my-perfect" Me myPerfect
 
     setStatValue "my-safe-counter" mySafes
     setStatValue "my-unsafe-counter" myUnsafes
@@ -176,6 +195,7 @@ mutual
         theirUnknowns    = s.unknowns
         theirLowest      = lowestPossibleScore s.them theirUnknowns s.deck
         theirHighest     = highestPossibleScore s.them theirUnknowns s.deck
+        theirPerfect     = perfectCard s.them s.deck s.goal
         theirLowestDraw  = lowestPossibleScore s.them (theirUnknowns + 1) s.deck
         theirHighestDraw = highestPossibleScore s.them (theirUnknowns + 1) s.deck
         theirSafes       = length (safeCards s.them s.deck s.goal)
@@ -187,6 +207,8 @@ mutual
     setColoredValue "their-highest-counter" theirHighest s.goal
     setColoredValue "their-lowest-draw-counter" theirLowestDraw s.goal
     setColoredValue "their-highest-draw-counter" theirHighestDraw s.goal
+
+    renderPerfect "their-perfect" Me theirPerfect
 
     setStatValue "their-safe-counter" theirSafes
     setStatValue "their-unsafe-counter" theirUnsafes
